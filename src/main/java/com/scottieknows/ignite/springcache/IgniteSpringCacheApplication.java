@@ -41,7 +41,9 @@ public class IgniteSpringCacheApplication {
         try {
             Field field = SpringCacheManager.class.getDeclaredField("ignite");
             field.setAccessible(true);
-            return (Ignite) field.get(cacheManager);
+            Ignite rtn = (Ignite) field.get(cacheManager);
+            field.setAccessible(false);
+            return rtn;
         } catch (SecurityException | IllegalAccessException | IllegalArgumentException | NoSuchFieldException e) {
             throw new RuntimeException(e);
         }
